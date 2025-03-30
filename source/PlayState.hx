@@ -12,7 +12,9 @@ import Shaders;
 import Song.SwagSong;
 import StageData;
 import WiggleEffect.WiggleEffectType;
+#if desktop
 import WindowAPI.WindowThing as Windowthing;
+#end
 import animateatlas.AtlasFrameMaker;
 import data.Etterna;
 import data.Ratings;
@@ -4901,6 +4903,7 @@ class PlayState extends MusicBeatState
         bfScrollWin.y = (((boyfriendFrame.offset.y) - (boyfriend.offset.y / 2)) * bfScrollWin.scaleY);
   }      
 
+	#if desktop
 	function popupBfWindow(customWidth:Int, customHeight:Int, ?customX:Int, ?customY:Int, ?customName:String) {
         var display = Application.current.window.display.currentMode;
         // PlayState.defaultCamZoom = 0.5;
@@ -5044,6 +5047,7 @@ class PlayState extends MusicBeatState
 		FlxG.autoPause = false;
 		Windowthing.getWindowsTransparent();
     }
+    #end
 
 	function openChartEditor()
 	{
