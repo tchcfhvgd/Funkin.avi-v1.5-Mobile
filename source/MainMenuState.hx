@@ -35,7 +35,7 @@ import IndieCrossShaderShit.FXHandler;
 //GameJolt
 import GameJolt;
 import GameJolt.GameJoltAPI;
-import tentools.api.FlxGameJolt as GJApi;
+import flixel.addons.api.FlxGameJolt as GJApi;
 import Main;
 
 using StringTools;
