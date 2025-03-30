@@ -8,8 +8,17 @@ import Controls;
 
 class ClientPrefs
     {
+	// Mobile and Mobile Controls Releated
+	public static var extraButtons:String = "NONE"; // mobile extra button option
+	public static var hitboxPos:Bool = true; // hitbox extra button position option
+	public static var controlsAlpha:Float = FlxG.onMobile ? 0.6 : 0;
+	public static var screensaver:Bool = false;
+	#if android
+	public static var storageType:String = "EXTERNAL_DATA";
+	#end
+	public static var hitboxType:String = "Gradient";
 	public static var screenShake:Bool = true;
-    public static var language:String = "English";
+        public static var language:String = "English";
 	public static var cutscenes:Bool = false;
 	public static var FPStext:Bool = false;
 	public static var colorblind:String = "No color filter";
@@ -130,6 +139,14 @@ class ClientPrefs
 	}
 
 	public static function saveSettings() {
+		FlxG.save.data.extraButtons = extraButtons;
+		FlxG.save.data.hitboxPos = hitboxPos;
+		FlxG.save.data.controlsAlpha = controlsAlpha;
+		FlxG.save.data.screensaver = screensaver;
+		#if android
+		FlxG.save.data.storageType = storageType;
+		#end
+		FlxG.save.data.hitboxType = hitboxType;
 		FlxG.save.data.restart = restart;
 		FlxG.save.data.screenShake = screenShake;
 		FlxG.save.data.language = language;
@@ -205,6 +222,26 @@ class ClientPrefs
 	}
 
 	public static function loadPrefs() {	
+		if(FlxG.save.data.extraButtons != null) {
+			extraButtons = FlxG.save.data.extraButtons;
+		}
+		if(FlxG.save.data.hitboxPos != null) {
+			hitboxPos = FlxG.save.data.hitboxPos;
+		}
+		if(FlxG.save.data.controlsAlpha != null) {
+			controlsAlpha = FlxG.save.data.controlsAlpha;
+		}
+		if(FlxG.save.data.screensaver != null) {
+			screensaver = FlxG.save.data.screensaver;
+		}
+		#if android
+		if(FlxG.save.data.storageType != null) {
+			storageType = FlxG.save.data.storageType;
+		}
+		#end
+		if(FlxG.save.data.hitboxType != null) {
+			hitboxType = FlxG.save.data.hitboxType;
+		}
 		if(FlxG.save.data.restar != null) {
 			restart = FlxG.save.data.rstart;
 		}
