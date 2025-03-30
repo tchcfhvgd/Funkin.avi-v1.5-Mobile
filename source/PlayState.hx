@@ -7173,7 +7173,7 @@ class PlayState extends MusicBeatState
 										case 'Rookie Sing':
 											dad.animation.play('rookieLeft');
 										case 'WI Sing':
-											WIMick.animation.play('WILeft');
+											dad.animation.play('WILeft');
 										case 'Randy Sing':
 											dad.animation.play('randyLeft');
 										case 'Cog Sing':
@@ -7243,7 +7243,7 @@ class PlayState extends MusicBeatState
 										case 'Rookie Sing':
 											dad.animation.play('rookieDown');
 										case 'WI Sing':
-											WIMick.animation.play('WIDown');
+											dad.animation.play('WIDown');
 										case 'Randy Sing':
 											dad.animation.play('randyDown');
 										case 'Cog Sing':
@@ -7311,7 +7311,7 @@ class PlayState extends MusicBeatState
 										case 'Rookie Sing':
 											dad.animation.play('rookieUp');
 										case 'WI Sing':
-											WIMick.animation.play('WIUp');
+											dad.animation.play('WIUp');
 										case 'Randy Sing':
 											dad.animation.play('randyUp');
 										case 'Cog Sing':
@@ -7379,7 +7379,7 @@ class PlayState extends MusicBeatState
 										case 'Rookie Sing':
 											dad.animation.play('rookieRight');
 										case 'WI Sing':
-											WIMick.animation.play('WIRight');
+											dad.animation.play('WIRight');
 										case 'Randy Sing':
 											dad.animation.play('randyRight');
 										case 'Cog Sing':
@@ -7474,7 +7474,7 @@ class PlayState extends MusicBeatState
 				case 'WI Sing':
 					new FlxTimer().start(1.5, function(tmr:FlxTimer)
 					{
-						WIMick.animation.play('idle');
+						dad.animation.play('idle');
 					});
 				case 'Randy Sing':
 					new FlxTimer().start(1.5, function(tmr:FlxTimer)
