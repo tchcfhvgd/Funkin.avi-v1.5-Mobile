@@ -117,8 +117,8 @@ class Main extends Sprite
 		#end
 		#end
 
-		Application.current.window.onFocusOut.add(onWindowFocusOut);
-		Application.current.window.onFocusIn.add(onWindowFocusIn);
+		//Application.current.window.onFocusOut.add(onWindowFocusOut);
+		//Application.current.window.onFocusIn.add(onWindowFocusIn);
 	}
 
 	var game:FlxGame;
