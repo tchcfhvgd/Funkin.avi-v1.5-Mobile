@@ -9991,8 +9991,9 @@ class PlayState extends MusicBeatState
 				}
 
 			case 'Hunted':
+			}
 				super.beatHit();
-				triggerEventNote('Add Camera Zoom', '0.004', '0.03');
+				//triggerEventNote('Add Camera Zoom', '0.004', '0.03');
 
 		setOnLuas('curBeat', curBeat); //DAWGG?????
 		callOnLuas('onBeatHit', []);
