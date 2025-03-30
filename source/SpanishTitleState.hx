@@ -366,7 +366,7 @@ class SpanishTitleState extends MusicBeatState
 
 	public static function restartGame()
 		{
-			#if cpp
+			#if desktop
 			var os = Sys.systemName();
 			var args = "Test.hx";
 			var app = "";
