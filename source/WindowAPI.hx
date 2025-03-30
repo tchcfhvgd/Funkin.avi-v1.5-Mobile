@@ -1,5 +1,6 @@
 package;
 
+#if desktop
 @:cppFileCode('#include <windows.h>\n#include <dwmapi.h>\n\n#pragma comment(lib, "Dwmapi")')
 class WindowThing
 {
@@ -29,3 +30,4 @@ class WindowThing
 		return res;
 	}
 }
+#end
