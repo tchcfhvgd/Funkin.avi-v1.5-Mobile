@@ -95,9 +95,9 @@ import Discord.DiscordClient;
 import sys.FileSystem;
 import sys.io.File;
 #end
-// everything else
-#if sys
-import sys.FileSystem;
+#if hxvlc
+import hxvlc.flixel.*;
+import hxvlc.util.*;
 #end
 
 
@@ -265,6 +265,7 @@ class PlayState extends MusicBeatState
 	var phillyWindow:BGSprite;
 	var phillyStreet:BGSprite;
 	var phillyTrain:BGSprite;
+	var waltText:FlxText;
 	var blammedLightsBlack:FlxSprite;
 	var phillyWindowEvent:BGSprite;
 	var trainSound:FlxSound;
@@ -2528,47 +2529,38 @@ class PlayState extends MusicBeatState
 		char.y += char.positionArray[1];
 	}
 
-	public function startVideo(name:String):Void {
+    public function startVideo(name:String)
+	{
 		#if VIDEOS_ALLOWED
-		var foundFile:Bool = false;
-		var fileName:String = #if MODS_ALLOWED Paths.modFolders('videos/' + name + '.' + Paths.VIDEO_EXT); #else ''; #end
+		inCutscene = true;
+
+		var filepath:String = Paths.video(name);
 		#if sys
-		if(FileSystem.exists(fileName)) {
-			foundFile = true;
-		}
+		if(!FileSystem.exists(filepath))
+		#else
+		if(!OpenFlAssets.exists(filepath))
 		#end
-
-		if(!foundFile) {
-			fileName = Paths.video(name);
-			#if sys
-			if(FileSystem.exists(fileName)) {
-			#else
-			if(OpenFlAssets.exists(fileName)) {
-			#end
-				foundFile = true;
-			}
-		}
-
-		if(foundFile) {
-			inCutscene = true;
-			var bg = new FlxSprite(-FlxG.width, -FlxG.height).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
-			bg.scrollFactor.set();
-			bg.cameras = [camHUD];
-			add(bg);
-
-			(new FlxVideo(fileName)).finishCallback = function() {
-				remove(bg);
-				startAndEnd();
-			}
+		{
+			FlxG.log.warn('Couldnt find video file: ' + name);
+			startAndEnd();
 			return;
 		}
-		else
+
+		var video:FlxVideo = new FlxVideo();
+		video.load(filepath);
+		video.play();
+		video.onEndReached.add(function()
 		{
-			FlxG.log.warn('Couldnt find video file: ' + fileName);
+			video.dispose();
 			startAndEnd();
-		}
-		#end
+			return;
+		}, true);
+
+		#else
+		FlxG.log.warn('Platform not supported!');
 		startAndEnd();
+		return;
+		#end
 	}
 
 	function startAndEnd()
@@ -7177,15 +7169,15 @@ class PlayState extends MusicBeatState
 									switch(note.noteType)
 									{
 										case 'AVI Sing':
-											aviMick.animation.play('AVILeft');
+											dad.animation.play('AVILeft');
 										case 'Rookie Sing':
-											rookieMick.animation.play('rookieLeft');
+											dad.animation.play('rookieLeft');
 										case 'WI Sing':
 											WIMick.animation.play('WILeft');
 										case 'Randy Sing':
-											randyMick.animation.play('randyLeft');
+											dad.animation.play('randyLeft');
 										case 'Cog Sing':
-											cogMick.animation.play('CogLeft');
+											dad.animation.play('CogLeft');
 									}	
 								}else{
 									animToPlay = 'singLEFT';
@@ -7247,15 +7239,15 @@ class PlayState extends MusicBeatState
 									switch(note.noteType)
 									{
 										case 'AVI Sing':
-											aviMick.animation.play('AVIDown');
+											dad.animation.play('AVIDown');
 										case 'Rookie Sing':
-											rookieMick.animation.play('rookieDown');
+											dad.animation.play('rookieDown');
 										case 'WI Sing':
 											WIMick.animation.play('WIDown');
 										case 'Randy Sing':
-											randyMick.animation.play('randyDown');
+											dad.animation.play('randyDown');
 										case 'Cog Sing':
-											cogMick.animation.play('CogDown');
+											dad.animation.play('CogDown');
 									}	
 								}else{
 									animToPlay = 'singDOWN';
@@ -7315,15 +7307,15 @@ class PlayState extends MusicBeatState
 									switch(note.noteType)
 									{
 										case 'AVI Sing':
-											aviMick.animation.play('AVIUp');
+											dad.animation.play('AVIUp');
 										case 'Rookie Sing':
-											rookieMick.animation.play('rookieUp');
+											dad.animation.play('rookieUp');
 										case 'WI Sing':
 											WIMick.animation.play('WIUp');
 										case 'Randy Sing':
-											randyMick.animation.play('randyUp');
+											dad.animation.play('randyUp');
 										case 'Cog Sing':
-											cogMick.animation.play('CogUp');
+											dad.animation.play('CogUp');
 									}	
 								}else{
 									animToPlay = 'singUP';
@@ -7383,15 +7375,15 @@ class PlayState extends MusicBeatState
 									switch(note.noteType)
 									{
 										case 'AVI Sing':
-											aviMick.animation.play('AVIRight');
+											dad.animation.play('AVIRight');
 										case 'Rookie Sing':
-											rookieMick.animation.play('rookieRight');
+											dad.animation.play('rookieRight');
 										case 'WI Sing':
 											WIMick.animation.play('WIRight');
 										case 'Randy Sing':
-											randyMick.animation.play('randyRight');
+											dad.animation.play('randyRight');
 										case 'Cog Sing':
-											cogMick.animation.play('CogRight');
+											dad.animation.play('CogRight');
 									}	
 								}else{
 									animToPlay = 'singRIGHT';
@@ -7472,12 +7464,12 @@ class PlayState extends MusicBeatState
 				case 'AVI Sing':
 					new FlxTimer().start(1.5, function(tmr:FlxTimer)
 					{
-						aviMick.animation.play('idle');
+						dad.animation.play('idle');
 					});
 				case 'Rookie Sing':
 					new FlxTimer().start(1.5, function(tmr:FlxTimer)
 					{
-						rookieMick.animation.play('idle');
+						dad.animation.play('idle');
 					});
 				case 'WI Sing':
 					new FlxTimer().start(1.5, function(tmr:FlxTimer)
@@ -7487,12 +7479,12 @@ class PlayState extends MusicBeatState
 				case 'Randy Sing':
 					new FlxTimer().start(1.5, function(tmr:FlxTimer)
 					{
-						randyMick.animation.play('idle');
+						dad.animation.play('idle');
 					});
 				case 'Cog Sing':
 					new FlxTimer().start(1.5, function(tmr:FlxTimer)
 					{
-						cogMick.animation.play('idle');
+						dad.animation.play('idle');
 					});
 			}
 		}
